@@ -116,6 +116,15 @@ class Element:
         if name in vars(self).get('absanchors', {}):
             return vars(self).get('absanchors')[name]  # type: ignore
         raise AttributeError(f'{name} not defined in Element')
+    
+    #addition
+
+    def id(self, element_id):
+        ''' Set an identifier for this element that will be used in the SVG '''
+        print(f"Setting ID: {element_id}")
+        self._userparams['id'] = element_id
+        return self
+    #-------
 
     def up(self) -> 'Element':
         ''' Set the direction to up '''

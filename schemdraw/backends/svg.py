@@ -251,9 +251,14 @@ class Figure:
     def plot(self, x: XY, y: XY,
              color: str = 'black', ls: Linestyle = '-', lw: float = 2,
              fill: str = 'none', capstyle: Capstyle = 'round',
-             joinstyle: Joinstyle = 'round', clip: Optional[BBox] = None, zorder: int = 2) -> None:
+             joinstyle: Joinstyle = 'round', clip: Optional[BBox] = None, zorder: int = 2,element_id=None) -> None:
         ''' Plot a path '''
         et = ET.Element('path')
+        #addition
+        if element_id:
+            print("good news ID is provided as",element_id)
+            et.set('id', str(element_id))
+        #---
         d = 'M {},{} '.format(*self.xform(x[0], y[0]))
         for xx, yy in zip(x[1:], y[1:]):
             if str(xx) == 'nan' or str(yy) == 'nan':
@@ -268,6 +273,12 @@ class Figure:
         et.set('d', d)
         et.set('style', getstyle(color=color, ls=ls, lw=lw, capstyle=capstyle,
                                  joinstyle=joinstyle, fill=fill))
+        #addition
+        # Add this line to set the ID attribute  ( this is the line that made the difference!)
+        if element_id:
+            et.set('id', str(element_id))
+            print(f"Added ID: {element_id} to path element")  # Debug print
+        #------
         self.addclip(et, clip)
         self.svgelements.append((zorder, et))
 
