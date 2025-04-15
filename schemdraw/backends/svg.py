@@ -287,11 +287,11 @@ class Figure:
              halign: Halign = 'center',
              valign: Valign = 'center',
              rotation_mode: RotationMode = 'anchor',
-             clip: Optional[BBox] = None, zorder: int = 3) -> None:
+             clip: Optional[BBox] = None, zorder: int = 3,element_id=None) -> None:
         ''' Add text to the figure '''
         if s == '':
             return
-
+        
         x0, y0 = self.xform(x, y)
         if fontfamily.lower() in ['sans-serif', 'Arial']:
             fontfamily = 'sans'
@@ -314,7 +314,7 @@ class Figure:
             texttag = svgtext.text_tosvg(s, x0, y0, font=fontfamily, size=fontsize,
                                          halign=halign, valign=valign, color=color,
                                          rotation=rotation, rotation_mode=rotation_mode,
-                                         testmode=False)
+                                         testmode=False,element_id=element_id)
         
         self.addclip(texttag, clip)
         self.svgelements.append((zorder, texttag))

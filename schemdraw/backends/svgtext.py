@@ -336,7 +336,7 @@ def text_approx_size(text: str, font: str = 'Arial', size: float = 16) -> tuple[
 def text_tosvg(text: str, x: float, y: float, font: str = 'Arial', size: float = 16, color: str = 'black',
                halign: Halign = 'center', valign: Valign = 'center',
                rotation: float = 0, rotation_mode: RotationMode = 'anchor',
-               testmode: bool = False) -> ET.Element:
+               testmode: bool = False,element_id= None) -> ET.Element:
     ''' Convert text to svg <text> tag.
 
         Args:
@@ -361,6 +361,9 @@ def text_tosvg(text: str, x: float, y: float, font: str = 'Arial', size: float =
     nlines = len(text.splitlines())
 
     textelm = ET.Element('text')
+
+    if element_id:
+        textelm.set('id', str(element_id))
 
     for line in text.splitlines():
         tspan = mathtextsvg(line)

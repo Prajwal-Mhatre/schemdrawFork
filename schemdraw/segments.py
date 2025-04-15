@@ -291,7 +291,8 @@ class SegmentText:
                  mathfont: Optional[str] = None,
                  clip: Optional[BBox] = None,
                  zorder: Optional[int] = None,
-                 visible: bool = True):
+                 visible: bool = True,
+                 element_id: Optional[str] = None):
         self.xy = pos
         self.text = label
         self.align = align
@@ -305,6 +306,7 @@ class SegmentText:
         self.clip = clip
         self.zorder = zorder
         self.visible = visible
+        self.element_id = element_id
 
     def doreverse(self, centerx: float) -> None:
         ''' Reverse the path (flip horizontal about the centerx point) '''
@@ -341,7 +343,12 @@ class SegmentText:
             'clip': self.clip,
             'zorder': self.zorder if self.zorder is not None else style.get('zorder', None),
             'visible': self.visible}
-
+        #addition
+        if hasattr(self, 'element_id') and self.element_id is not None:
+            params['element_id'] = self.element_id
+        else:
+            params['element_id'] = style.get('id')
+        #---    
         style = {k: v for k, v in style.items() if params.get(k) is None and k in params.keys()}
         params.update(style)
         if not params['rotation_global']:
@@ -416,10 +423,15 @@ class SegmentText:
             else:
                 rotation = rotation + transform.theta % 360
 
+        #addition
+        #id_value = style.get('id')  $# this is also the difference creator
+        element_id = style.get('id') or getattr(self, 'element_id', None) 
+        #---
+
         fig.text(self.text, xy[0], xy[1],
                  color=color, fontsize=fontsize, fontfamily=font, mathfont=mathfont,
                  rotation=rotation, rotation_mode=rotmode,
-                 halign=align[0], valign=align[1], clip=self.clip, zorder=zorder)
+                 halign=align[0], valign=align[1], clip=self.clip, zorder=zorder,element_id=element_id)
 
         # Debug Text Bounding Box
         # (doesn't work when label is not rotated with element)
