@@ -219,9 +219,7 @@ class Segment:
         y = [p[1] for p in linepath]
         #addition
         #id_value = style.get('id')  $# this is also the difference creator
-        element_id = style.get('id') or getattr(self, 'element_id', None)
-        if element_id:
-            print(f"Segment.draw: ID {element_id} being passed to fig.plot")       
+        element_id = style.get('id') or getattr(self, 'element_id', None) 
         #---
 
         fig.plot(x, y, color=color, fill=fill,

@@ -277,7 +277,6 @@ class Figure:
         # Add this line to set the ID attribute  ( this is the line that made the difference!)
         if element_id:
             et.set('id', str(element_id))
-            print(f"Added ID: {element_id} to path element")  # Debug print
         #------
         self.addclip(et, clip)
         self.svgelements.append((zorder, et))

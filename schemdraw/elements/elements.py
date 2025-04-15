@@ -121,7 +121,6 @@ class Element:
 
     def id(self, element_id):
         ''' Set an identifier for this element that will be used in the SVG '''
-        print(f"Setting ID: {element_id}")
         self._userparams['id'] = element_id
         return self
     #-------
