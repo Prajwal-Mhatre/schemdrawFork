@@ -256,7 +256,6 @@ class Figure:
         et = ET.Element('path')
         #addition
         if element_id:
-            print("good news ID is provided as",element_id)
             et.set('id', str(element_id))
         #---
         d = 'M {},{} '.format(*self.xform(x[0], y[0]))
